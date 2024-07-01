@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+        <p class="h2 p-4">Welcome, {{ username }}</p>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Stock</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Total Value</th>
+                <th scope="col">Transaction</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                {% if stock.shares > 0 %}
+                    <tr>
+                        <!-- Owned stocks -->
+                        <th scope="row">{{ stock.symbol }}</th>
+                        <!-- Number of shares owned -->
+                        <td>{{ stock.shares }}</td>
+                        <!-- Current price of each stock -->
+                        <td>{{ stock.price }}</td>
+                        <!-- Total value of each stock -->
+                        <td>{{ stock.total_value }}</td>
+                        <td>
+                            <form method="post">
+                                <input name="symbol" type="hidden" value="{{ stock.symbol }}">
+                                <input autocomplete="off" name="shares" placeholder="Shares" type="number">
+                                <button formaction="/buy" class="btn btn-primary">Buy</button>
+                                <button formaction="/sell" class="btn btn-primary">Sell</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table">
+        <tbody>
+                <tr>
+                    <!-- Current cash balance -->
+                    <th scope="row">Cash Balance</th>
+                    <td>{{ cash }}</td>
+                </tr>
+                <tr>
+                    <!-- Total stock values + cash balance -->
+                    <th scope="row">Grand Total</th>
+                    <td>{{ grand_total }}</td>
+                </tr>
+        </tbody>
+    </table>
+{% endblock %}
