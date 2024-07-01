@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+        <p class="h3 p-4">Your transaction history</p>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Date / Time</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Transaction Type</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <!-- Transaction date and time -->
+                    <td>{{ transaction.datetime }}</th>
+                    <!-- Stock bought / sold -->
+                    <td>{{ transaction.symbol }}</td>
+                    <!-- Type of transaction -->
+                    <td>{{ transaction.type }}</td>
+                    <!-- Share change amount -->
+                    <td>{{ transaction.shares }}</td>
+                    <!-- Share price at transaction -->
+                    <td>{{ transaction.price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
